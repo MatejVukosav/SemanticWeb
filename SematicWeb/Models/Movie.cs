@@ -19,7 +19,7 @@ namespace SematicWeb.Models
 
         public string dugiOpis { get; set; }
 
-        public DateTime datumNastanka { get; set; }
+        public string datumNastanka { get; set; }
     
         public List<Actor> actors { get; set; }
     }

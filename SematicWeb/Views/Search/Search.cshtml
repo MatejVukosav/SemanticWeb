@@ -20,7 +20,7 @@
 
                 @foreach (var m in @Model.results)
                 {
-                    <li class="list-group-item">@Html.ActionLink(m.name, "SearchDetails", new { movie = m.name })</li>
+                    <li class="list-group-item">@Html.ActionLink(m.name, "SearchDetails", new { query = m.name })</li>
                 }
             </ul>
         </div>

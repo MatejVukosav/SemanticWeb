@@ -291,6 +291,7 @@
     <Content Include="Views\Search\Movie.cshtml" />
     <Content Include="Views\Search\Actor.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Search\NoResultView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

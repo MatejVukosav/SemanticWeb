@@ -33,7 +33,7 @@
                 <dt>Total actors</dt>
                 <dd>@Model.Stats.ActorsCount</dd>
                 <dt>Total writers</dt>
-                <dd>@Model.Stats.WritersCount</dd>
+                <dd>@Model.Stats.DramaMoviesCount</dd>
                 <dt>Total movies</dt>
                 <dd>@Model.Stats.MoviesCount</dd>
             </dl>
@@ -46,7 +46,7 @@
             <ul class="list-group">
                 @foreach (var m in @Model.randomMovies)
                 {
-                    <li class="list-group-item">@Html.ActionLink(m.name, "Movie", new { movie = m.url })</li>
+                     <li class="list-group-item">@Html.ActionLink(m.name, "Movie", new { movie = m.name })</li>
                 }
             </ul>
         </div>

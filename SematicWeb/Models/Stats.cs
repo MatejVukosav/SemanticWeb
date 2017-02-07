@@ -10,7 +10,7 @@ namespace SematicWeb.Models
 
         public int TriplesCount { get; set; }
         public int ActorsCount { get; set; }
-        public int WritersCount { get; set; }
+        public int DramaMoviesCount { get; set; }
         public int MoviesCount { get; set; }
 
     }
