@@ -23,51 +23,16 @@ namespace SematicWeb.Controllers
         public ActionResult Index()
         {
 
-            /*
-            //Create a Parameterized String
-            SparqlParameterizedString queryString = new SparqlParameterizedString();
-
-            //Add a namespace declaration
-            queryString.Namespaces.AddNamespace("lmdb", new Uri("http://data.linkedmdb.org/resource/movie/"));
-
-            queryString.CommandText = "SELECT DISTINCT ? actorName WHERE { ?kb lmdb:actor_name \"Kevin Bacon\".? movie lmdb:actor? kb . ?movie lmdb:actor? actor . ?actor lmdb:actor_name? actorName .FILTER(?kb != ? actor)}  ORDER BY ASC(?actorName)";
-
-
-            //Inject a Value for the parameter
-            queryString.SetUri("value", new Uri("http://localhost:3030/LMDB/query"));
-
-            //When we call ToString() we get the full command text with namespaces appended as PREFIX
-            //declarations and any parameters replaced with their declared values
-            Console.WriteLine(queryString.ToString());
-            */
-
-            // SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
-
-
-            //Make a SELECT query against the Endpoint
-            SparqlResultSet results = endpoint.QueryWithResultSet("PREFIX lmdb: <http://data.linkedmdb.org/resource/movie/> SELECT DISTINCT ?actorName WHERE { ?kb lmdb:actor_name 'Kevin Bacon' . ?movie lmdb:actor ?kb . ?movie lmdb:actor ?actor . ?actor lmdb:actor_name ?actorName . FILTER(?kb != ?actor)}  ORDER BY ASC(?actorName)");
-            foreach (SparqlResult result in results)
+            Home homeData = new Home();
+            homeData.randomMovies = new List<Movie>();
+            SparqlResultSet randomFilmovi = endpoint.QueryWithResultSet("PREFIX movie: <http://data.linkedmdb.org/resource/movie/> PREFIX dc: <http://purl.org/dc/terms/> SELECT ?title  WHERE { ?movie dc:title ?title . } ORDER BY RAND() LIMIT 3");
+            foreach (SparqlResult result in randomFilmovi)
             {
-                Console.WriteLine(result.ToString());
+                Movie m = new Movie();
+                m.name = ((VDS.RDF.BaseLiteralNode)(result[0])).Value;
+                homeData.randomMovies.Add(m);
             }
 
-
-            Home homeData = new Home();
-
-            homeData.randomMovies = new List<Movie>();
-
-            Movie m1 = new Movie();
-            m1.name = "Bilo jednom u americi";
-            m1.url = "http://nesto.com";
-            m1.redatelj = "marjan";
-            m1.scenarist = "perica";
-
-            Actor actor = new Actor();
-            actor.name = "milivoj";
-            m1.actors = new List<Models.Actor>();
-            m1.actors.Add(actor);
-
-            homeData.randomMovies.Add(m1);
 
             homeData.Stats = new Stats();
             //Statistika
@@ -147,7 +112,7 @@ namespace SematicWeb.Controllers
                 Movie m = new Movie();
                 if (detaljiFilma.Count > 0)
                 {
-                    SparqlResult result = detaljiFilma[0];             
+                    SparqlResult result = detaljiFilma[0];
                     m.name = ((VDS.RDF.BaseLiteralNode)(result[0])).Value;
                     m.scenarist = ((VDS.RDF.BaseLiteralNode)(result[2])).Value;
                     m.redatelj = ((VDS.RDF.BaseLiteralNode)(result[3])).Value;
